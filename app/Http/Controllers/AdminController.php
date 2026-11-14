@@ -68,6 +68,32 @@ class AdminController extends Controller
             'wifi' => $data['free_wifi'],
         ]);
 
-        return redirect()->back()->with('success', 'Room Added Successfully!');
+        return redirect()->route('view_room')
+            ->with('success', 'Room Added Successfully!');
+    }
+
+    public function view_room()
+    {
+        $rooms = Room::latest()->get();
+
+        return view('admin.pages.view_room', compact('rooms'));
+    }
+
+    public function delete_room($id)
+    {
+        $room = Room::findOrFail($id);
+
+        // Delete room image
+        $imagePath = public_path('room_images/' . $room->image);
+
+        if ($room->image && file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+
+        // Delete room from database
+        $room->delete();
+
+        return redirect()->route('view_room')
+            ->with('success', 'Room Deleted Successfully!');
     }
 }

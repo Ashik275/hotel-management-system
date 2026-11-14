@@ -9,12 +9,38 @@
     </div>
     <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
     <ul class="list-unstyled">
-        <li class="active"><a href="index.html"> <i class="icon-home"></i>Home </a></li>
-        <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Room </a>
-            <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                <li><a href="{{route('create_room')}}">Add Room</a></li>
-                <li><a href="#">Page</a></li>
-                <li><a href="#">Page</a></li>
-            </ul>
-        </li>
+
+    <li class="{{ request()->routeIs('home') ? 'active' : '' }}">
+        <a href="{{ route('home') }}">
+            <i class="icon-home"></i> Home
+        </a>
+    </li>
+
+    <li class="{{ request()->routeIs('create_room', 'view_room') ? 'active' : '' }}">
+
+        <a href="#exampledropdownDropdown"
+           aria-expanded="{{ request()->routeIs('create_room', 'view_room') ? 'true' : 'false' }}"
+           data-toggle="collapse">
+            <i class="icon-windows"></i> Hotel Room
+        </a>
+
+        <ul id="exampledropdownDropdown"
+            class="collapse list-unstyled {{ request()->routeIs('create_room', 'view_room') ? 'show' : '' }}">
+
+            <li class="{{ request()->routeIs('create_room') ? 'active' : '' }}">
+                <a href="{{ route('create_room') }}">Add Room</a>
+            </li>
+
+            <li class="{{ request()->routeIs('view_room') ? 'active' : '' }}">
+                <a href="{{ route('view_room') }}">View Room</a>
+            </li>
+
+            <li>
+                <a href="#">Page</a>
+            </li>
+
+        </ul>
+    </li>
+
+</ul>
 </nav>

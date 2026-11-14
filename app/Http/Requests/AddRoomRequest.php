@@ -20,10 +20,10 @@ class AddRoomRequest extends FormRequest
      *
      * @return array<string, ValidationRule|array<mixed>|string>
      */
-      public function rules(): array
+    public function rules(): array
     {
         return [
-            'room_title' => 'required|string|max:255',
+            'room_title' => 'required|string|max:255|unique:rooms,room_title',
             'room_description' => 'required|string',
             'room_price' => 'required|numeric|min:0',
             'room_image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
@@ -36,6 +36,7 @@ class AddRoomRequest extends FormRequest
     {
         return [
             'room_title.required' => 'Room title is required.',
+            'room_title.unique' => 'This room title already exists. Please choose another title.',
             'room_description.required' => 'Room description is required.',
             'room_price.required' => 'Room price is required.',
             'room_price.numeric' => 'Room price must be a number.',
