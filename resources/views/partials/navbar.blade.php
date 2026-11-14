@@ -1,4 +1,3 @@
-
 <nav class="navigation navbar navbar-expand-md navbar-dark">
     <button class="navbar-toggler" type="button"
         data-toggle="collapse"
@@ -38,62 +37,62 @@
             </li>
 
             @if (Route::has('login'))
-                @auth
+            @auth
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}">
-                            Dashboard
-                        </a>
-                    </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('home') }}">
+                    Dashboard
+                </a>
+            </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"
-                           href="#"
-                           id="userDropdown"
-                           role="button"
-                           data-toggle="dropdown"
-                           aria-haspopup="true"
-                           aria-expanded="false">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle"
+                    href="#"
+                    id="userDropdown"
+                    role="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
 
-                            {{ Auth::user()->name }}
-                        </a>
+                    {{ Auth::user()->name }}
+                </a>
 
-                        <div class="dropdown-menu" aria-labelledby="userDropdown">
+                <div class="dropdown-menu" aria-labelledby="userDropdown">
 
-                            <a class="dropdown-item" href="{{ route('profile.show') }}">
-                                My Profile
-                            </a>
+                    <a class="dropdown-item" href="{{ route('profile.show') }}">
+                        My Profile
+                    </a>
 
-                            <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider"></div>
 
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
 
-                                <button type="submit" class="dropdown-item text-danger">
-                                    Logout
-                                </button>
-                            </form>
+                        <button type="submit" class="dropdown-item text-danger">
+                            Logout
+                        </button>
+                    </form>
 
-                        </div>
-                    </li>
+                </div>
+            </li>
 
-                @else
+            @else
 
-                    <li class="nav-item mr-2">
-                        <a class="btn btn-success" href="{{ route('login') }}">
-                            Login
-                        </a>
-                    </li>
+            <li class="nav-item mr-2">
+                <a class="btn btn-success" href="{{ route('login') }}">
+                    Login
+                </a>
+            </li>
 
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="btn btn-primary" href="{{ route('register') }}">
-                                Registration
-                            </a>
-                        </li>
-                    @endif
+            @if (Route::has('register'))
+            <li class="nav-item">
+                <a class="btn btn-primary" href="{{ route('register') }}">
+                    Registration
+                </a>
+            </li>
+            @endif
 
-                @endauth
+            @endauth
             @endif
 
         </ul>
