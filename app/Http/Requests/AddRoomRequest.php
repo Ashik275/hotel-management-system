@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AddRoomRequest extends FormRequest
 {
@@ -22,11 +23,19 @@ class AddRoomRequest extends FormRequest
      */
     public function rules(): array
     {
+        $roomId = $this->route('id');
+
         return [
-            'room_title' => 'required|string|max:255|unique:rooms,room_title',
+            'room_title' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('rooms', 'room_title')->ignore($roomId),
+            ],
+
             'room_description' => 'required|string',
             'room_price' => 'required|numeric|min:0',
-            'room_image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'room_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'room_type' => 'required|in:regular,preamium,deluxe',
             'free_wifi' => 'required|in:yes,no',
         ];

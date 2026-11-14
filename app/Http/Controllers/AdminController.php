@@ -96,4 +96,51 @@ class AdminController extends Controller
         return redirect()->route('view_room')
             ->with('success', 'Room Deleted Successfully!');
     }
+
+    public function edit_room($id)
+    {
+        $room = Room::findOrFail($id);
+
+        return view('admin.pages.edit_room', compact('room'));
+    }
+
+    public function update_room(AddRoomRequest $request, $id)
+    {
+        $room = Room::findOrFail($id);
+
+        $data = $request->validated();
+
+        // Upload new image if selected
+        if ($request->hasFile('room_image')) {
+
+            // Delete old image
+            $oldImage = public_path('room_images/' . $room->image);
+
+            if ($room->image && file_exists($oldImage)) {
+                unlink($oldImage);
+            }
+
+            // Upload new image
+            $image = $request->file('room_image');
+
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+
+            $image->move(public_path('room_images'), $imageName);
+
+            $data['image'] = $imageName;
+        }
+
+        // Update room data
+        $room->update([
+            'room_title' => $data['room_title'],
+            'description' => $data['room_description'],
+            'price' => $data['room_price'],
+            'image' => $data['image'] ?? $room->image,
+            'room_type' => $data['room_type'],
+            'wifi' => $data['free_wifi'],
+        ]);
+
+        return redirect()->route('view_room')
+            ->with('success', 'Room Updated Successfully!');
+    }
 }

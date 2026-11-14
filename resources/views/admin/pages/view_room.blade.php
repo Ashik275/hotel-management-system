@@ -6,20 +6,20 @@
          <div class="title">
              <strong>Hotel Rooms</strong>
          </div>
-@if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+         @if(session('success'))
+         <div class="alert alert-success alert-dismissible fade show" role="alert">
 
-        {{ session('success') }}
+             {{ session('success') }}
 
-        <button type="button"
-                class="close"
-                data-dismiss="alert"
-                aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+             <button type="button"
+                 class="close"
+                 data-dismiss="alert"
+                 aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+             </button>
 
-    </div>
-@endif
+         </div>
+         @endif
 
          <div class="table-responsive">
              <table class="table table-striped table-bordered">
@@ -60,7 +60,7 @@
                          <td>{{ ucfirst($room->wifi) }}</td>
 
                          <td>
-                             <a href=""
+                             <a href="{{ route('edit_room', $room->id) }}"
                                  class="btn btn-sm btn-primary"
                                  title="Edit">
                                  <i class="fa fa-edit"></i>
